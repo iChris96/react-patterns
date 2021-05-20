@@ -1,65 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { PokemonList } from './with-fetch-hoc-example/PokemonList';
+import { withFetch } from './with-fetch-hoc-example/withFetch';
 
-
-const withFetch = (FORM, url) => {
-
-  const ControlledFetch = () => {
-
-    const [data, setData] = useState(null);
-    const [isLoading, setLoading] = useState(false);
-    const [isError, setError] = useState(null);
-
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          setLoading(true);
-          const data = await fetch(url);
-          const response = await data.json();
-          console.log("we have data!", response);
-          setData(response)
-        } catch (e) {
-          setError(e);
-        } finally {
-          setLoading(false);
-        }
-      }
-
-      fetchData();
-    }, [])
-
-
-    if (isLoading) {
-      return 'Loading...';
-    }
-
-    if (isError) {
-      return <p>{isError.message}</p>;
-    }
-
-    if (!data) {
-      return null;
-    }
-
-    return (<FORM data={data} />)
-
-  }
-
-  return ControlledFetch;
-}
-
-const endpoint = "pokemon?limit=100"
+const endpoint = "pokemon?limit=15"
 const url = `https://pokeapi.co/api/v2/${endpoint}/`
+const WithPokemonList = withFetch(PokemonList, url);
 
-export const HocPage = withFetch(({ data }) => {
+export const HocPage = () => {
 
-  const pokemonList = data.results.map((pokemon) =>
-    <li>{pokemon.name}</li>
-  );
+
   return (
     <>
-      {pokemonList}
+      <h1>PokemonList - Using withFetch HOC</h1>
+      <WithPokemonList />
     </>
   )
 
-}, url)
+}
 
