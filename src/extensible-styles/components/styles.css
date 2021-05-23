@@ -1,0 +1,13 @@
+.btn {
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.coral-btn {
+    background-color: coral;
+}
+
+.red-btn {
+    background-color: red;
+}
