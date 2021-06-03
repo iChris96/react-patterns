@@ -40,7 +40,7 @@ export const withFetch = (FORM, url) => {
             return null;
         }
 
-        return (<FORM data={data} />)
+        return (<FORM data={data} isLoading={isLoading} />)
 
     }
 
